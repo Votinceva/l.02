@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <Windows.h>
+
+void Add_Beg(List **start, Data &x) //new first//
+{
+    List *t = new List;
+    t->d.a = x.a;
+    t->next = *start;
+    *start = t;
+    printf("/n");
+}
+
+void Scan(List *x, int i)
+{ List *p = x; //указатель на конец
+    do
+        {
+            p->next=new List;
+            p=p->next; // на следующий элемент
+            printf("Element %d = ", i);
+            scanf ("%s", &u->d.a);
+            p->next=NULL; // обнуляем next
+            i++;
+        }
+    while(i<=5)
+        printf("/n");
+}
+
+void Print(List *start)
+{
+    List *p = start; //указатель на начало
+    printf("Spisok:/n");
+    for ( ; i != NULL; i=i->next){ /* i=(*i).next */
+		printf("%s/n", p->d.a);
+	}
+    printf("/n");
+}
+
+struct Data
+    {
+        int a;
+    };
+struct List
+    {
+        Data d;
+        List *next;
+    };
+    
+int i=1;
+
+int main()
+{
+    List *start=NULL; //указатель на начало будущего списка
+    //первоначальное заполнение списка
+    start=new List;
+    printf ("Элемент %d = ", i);
+    scanf ("%s", &start->d.a);
+    start->next=NULL; // следующий пока пуст
+    i++;
+    List *x=start;
+    Scan(x,i); // Ввод элементов списка в конец
+    Print(start); // Вывод элементов на экран
+return 0;
+}

@@ -61,52 +61,46 @@ void search(list *lst, int value){
 }
 
 int main(){
-    int action;
+    int ch; /*choice*/
     menu:
-    printf("1 - create island\n");
-    printf("2 - add element\n");
-    printf("3 - delete element\n");
-    printf("4 - display list\n");
-    printf("5 - delete list\n");
-    printf("6 - find element\n");
-    printf("7 - exit\n");
+    printf("1 - create island\n2 - add element\n3 - delete element\n4 - display list\n5 - delete list\n6 - find element\n7 - exit\n");
     printf("Your choice: ");
-    scanf("%d", &action);
-    switch (action){
-    case 1: ;
-        int n;
-        printf("Enter the value of the first elem: ");
-        scanf("%d", &n);
-        struct list *i = create(n);
-        break;
-    case 2: {
-        int n;
-        printf("Enter the value of elem: ");
-        scanf("%d", &n);
-        add(i, n);
-        break;
-    }
-    case 3:
-        delete_elem(i);
-        break;
-    case 4:
-        print_list(i);
-        break;
-    case 5:
-        delete_list(i);
-        break;
-    case 6: {
-        int n;
-        printf("Enter the value to find: ");
-        scanf("%d", &n);
-        search(i, n);
-        break;
-    }
-    case 7:
-        return 0;
-    default:
-        /*menu();*/
-        break;
+    scanf("%d", &ch);
+    switch (ch){
+        case 1: ;
+            int n;
+            printf("Enter the value of the first elem: ");
+            scanf("%d", &n);
+            struct list *i = create(n);
+            break;
+        case 2: {
+            int n;
+            printf("Enter the value of elem: ");
+            scanf("%d", &n);
+            add(i, n);
+            break;
+        }
+        case 3:
+            delete_elem(i);
+            break;
+        case 4:
+            print_list(i);
+            break;
+        case 5:
+            delete_list(i);
+            break;
+        case 6: {
+            int n;
+            printf("Enter the value to find: ");
+            scanf("%d", &n);
+            search(i, n);
+            break;
+        }
+        case 7:
+            return 0;
+        default:
+            /*menu();*/
+            break;
     }
     printf("\n\n");
     goto menu;

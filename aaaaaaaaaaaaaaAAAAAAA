@@ -3,32 +3,32 @@
 
 typedef struct list {
     int value;
-    struct list *nxt;
+    struct list *next;
 } list;
 
-list *create (int value){
+list *push_start (int value){
     list *i = (list*)malloc(sizeof(list));
     /*i->name = name;*/
     i->value = value;
-    i->nxt = NULL;
+    i->next = NULL;
     return i;
 }
 
-struct list * add(list *lst, int value){
+struct list * push_last(list *lst, int value){
     struct list *temp, *p;
     temp = (struct list*)malloc(sizeof(list));
-    p = lst->nxt;
-    lst->nxt = temp;
+    p = lst->next;
+    lst->next = temp;
     temp->value = value;
-    temp->nxt = p;
+    temp->next = p;
     return temp;
 }
 
-void delete_elem(list *lst){
+void remove_last(list *lst){
     list *p;
     if (lst == NULL) return;
-    for (p=lst; p->nxt->nxt; p=p->nxt) ;
-    p->nxt = NULL;
+    for (p=lst; p->next->next; p=p->next) ;
+    p->next = NULL;
 }
 
 void print_list(list *lst){
@@ -36,71 +36,77 @@ void print_list(list *lst){
     p = lst;
     do {
         printf("%d ", p->value);
-        p = p->nxt;
+        p = p->next;
     } while (p != NULL);
 }
 
 void delete_list(list *lst){
     while (lst != NULL){
         list *p = lst;
-        lst = lst->nxt;
+        lst = lst->next;
         free(p);
     }
 }
 
-void search(list *lst, int value){
+void find(list *lst, int value){
     while (lst != NULL){
         list *p = lst;
-        lst = lst->nxt;
+        lst = lst->next;
         if (value == p->value){
-            printf("element is found");
+            printf("Element was found");
             return;
         }
     }
-    printf("was not found");
+    printf("Element wasn't found");
 }
 
 int main(){
-    int ch; /*choice*/
+    int choice;
     menu:
-    printf("1 - create island\n2 - add element\n3 - delete element\n4 - display list\n5 - delete list\n6 - find element\n7 - exit\n");
+    printf("Choose an action:\n");
+    printf("1. Create 1st element\n");
+    printf("2. Add element to the end\n");
+    printf("3. Delete element from the end\n");
+    printf("4. Display a list\n");
+    printf("5. Delete a list\n");
+    printf("6. Find element in a list\n");
+    printf("7. Exit\n");
     printf("Your choice: ");
-    scanf("%d", &ch);
-    switch (ch){
-        case 1: ;
-            int n;
-            printf("Enter the value of the first elem: ");
-            scanf("%d", &n);
-            struct list *i = create(n);
-            break;
-        case 2: {
-            int n;
-            printf("Enter the value of elem: ");
-            scanf("%d", &n);
-            add(i, n);
-            break;
-        }
-        case 3:
-            delete_elem(i);
-            break;
-        case 4:
-            print_list(i);
-            break;
-        case 5:
-            delete_list(i);
-            break;
-        case 6: {
-            int n;
-            printf("Enter the value to find: ");
-            scanf("%d", &n);
-            search(i, n);
-            break;
-        }
-        case 7:
-            return 0;
-        default:
-            /*menu();*/
-            break;
+    scanf("%d", &choice);
+    switch (choice){
+    case 1: ;
+        int k;
+        printf("Enter the value of the first elem: ");
+        scanf("%d", &k);
+        struct list *i = push_start(k);
+        break;
+    case 2: {
+        int k;
+        printf("Enter the value of elem: ");
+        scanf("%d", &k);
+        push_last(i, k);
+        break;
+    }
+    case 3:
+        remove_last(i);
+        break;
+    case 4:
+        print_list(i);
+        break;
+    case 5:
+        delete_list(i);
+        break;
+    case 6: {
+        int k;
+        printf("Enter the value to find: ");
+        scanf("%d", &k);
+        find(i, k);
+        break;
+    }
+    case 7:
+        return 0;
+    default:
+        break;
     }
     printf("\n\n");
     goto menu;

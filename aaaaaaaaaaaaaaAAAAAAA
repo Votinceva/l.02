@@ -1,65 +1,114 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <Windows.h>
 
-void Add_Beg(List **start, Data &x) //new first//
-{
-    List *t = new List;
-    t->d.a = x.a;
-    t->next = *start;
-    *start = t;
-    printf("/n");
+typedef struct list {
+    int value;
+    struct list *nxt;
+} list;
+
+list *create (int value){
+    list *i = (list*)malloc(sizeof(list));
+    /*i->name = name;*/
+    i->value = value;
+    i->nxt = NULL;
+    return i;
 }
 
-void Scan(List *x, int i)
-{ List *p = x; //указатель на конец
-    do
-        {
-            p->next=new List;
-            p=p->next; // на следующий элемент
-            printf("Element %d = ", i);
-            scanf ("%s", &u->d.a);
-            p->next=NULL; // обнуляем next
-            i++;
+struct list * add(list *lst, int value){
+    struct list *temp, *p;
+    temp = (struct list*)malloc(sizeof(list));
+    p = lst->nxt;
+    lst->nxt = temp;
+    temp->value = value;
+    temp->nxt = p;
+    return temp;
+}
+
+void delete_elem(list *lst){
+    list *p;
+    if (lst == NULL) return;
+    for (p=lst; p->nxt->nxt; p=p->nxt) ;
+    p->nxt = NULL;
+}
+
+void print_list(list *lst){
+    struct list *p;
+    p = lst;
+    do {
+        printf("%d ", p->value);
+        p = p->nxt;
+    } while (p != NULL);
+}
+
+void delete_list(list *lst){
+    while (lst != NULL){
+        list *p = lst;
+        lst = lst->nxt;
+        free(p);
+    }
+}
+
+void search(list *lst, int value){
+    while (lst != NULL){
+        list *p = lst;
+        lst = lst->nxt;
+        if (value == p->value){
+            printf("element is found");
+            return;
         }
-    while(i<=5)
-        printf("/n");
+    }
+    printf("was not found");
 }
 
-void Print(List *start)
-{
-    List *p = start; //указатель на начало
-    printf("Spisok:/n");
-    for ( ; i != NULL; i=i->next){ /* i=(*i).next */
-		printf("%s/n", p->d.a);
-	}
-    printf("/n");
-}
-
-struct Data
-    {
-        int a;
-    };
-struct List
-    {
-        Data d;
-        List *next;
-    };
-    
-int i=1;
-
-int main()
-{
-    List *start=NULL; //указатель на начало будущего списка
-    //первоначальное заполнение списка
-    start=new List;
-    printf ("Элемент %d = ", i);
-    scanf ("%s", &start->d.a);
-    start->next=NULL; // следующий пока пуст
-    i++;
-    List *x=start;
-    Scan(x,i); // Ввод элементов списка в конец
-    Print(start); // Вывод элементов на экран
-return 0;
+int main(){
+    int action;
+    menu:
+    printf("1 - create island\n");
+    printf("2 - add element\n");
+    printf("3 - delete element\n");
+    printf("4 - display list\n");
+    printf("5 - delete list\n");
+    printf("6 - find element\n");
+    printf("7 - exit\n");
+    printf("Your choice: ");
+    scanf("%d", &action);
+    switch (action){
+    case 1: ;
+        int n;
+        printf("Enter the value of the first elem: ");
+        scanf("%d", &n);
+        struct list *i = create(n);
+        break;
+    case 2: {
+        int n;
+        printf("Enter the value of elem: ");
+        scanf("%d", &n);
+        add(i, n);
+        break;
+    }
+    case 3:
+        delete_elem(i);
+        break;
+    case 4:
+        print_list(i);
+        break;
+    case 5:
+        delete_list(i);
+        break;
+    case 6: {
+        int n;
+        printf("Enter the value to find: ");
+        scanf("%d", &n);
+        search(i, n);
+        break;
+    }
+    case 7:
+        return 0;
+    default:
+        /*menu();*/
+        break;
+    }
+    printf("\n\n");
+    goto menu;
+    return 0;
 }
